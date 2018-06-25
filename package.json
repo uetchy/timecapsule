@@ -1,8 +1,7 @@
 {
   "name": "timelag",
   "version": "0.1.0",
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "classnames": "^2.2.5",
     "load-asset": "^1.2.0",
@@ -10,6 +9,6 @@
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {},
+  "license": "MIT"
 }

@@ -1,6 +1,6 @@
-export default class AudioPlayer {
+export class AudioPlayer {
   AudioContext: AudioContext
-  nodes: AudioNode[]
+  nodes: AudioPlayerNode[]
   reqFrame?: number
 
   constructor() {
@@ -10,13 +10,13 @@ export default class AudioPlayer {
   }
 
   addSource(args: SourceArgs) {
-    return new Promise<AudioNode>((resolve, reject) => {
+    return new Promise<AudioPlayerNode>((resolve, reject) => {
       console.log('Mixer:addSource', args.name)
       const ctx = this.AudioContext
       ctx.decodeAudioData(args.buffer, audioBuffer => {
         const bufSource = ctx.createBufferSource()
 
-        const node = <AudioNode>{
+        const node = <AudioPlayerNode>{
           source: bufSource,
           name: args.name,
           start: 0,
@@ -59,7 +59,7 @@ export default class AudioPlayer {
     node.isPlaying = true
   }
 
-  _stop(node: AudioNode) {
+  _stop(node: AudioPlayerNode) {
     node.source.stop()
     node.offset = null
     node.isPlaying = false

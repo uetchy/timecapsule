@@ -1,4 +1,4 @@
-interface AudioNode {
+interface AudioPlayerNode {
   source: AudioBufferSourceNode
   name: string
   start: number

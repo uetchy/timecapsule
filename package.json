@@ -2,17 +2,16 @@
   "name": "timecapsule",
   "description": "Timeline based event invocation system.",
   "version": "0.1.0",
-  "main": "dist/timecapsule.js",
-  "types": "dist/timecapsule.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {
-    "load-asset": "^1.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "typescript": "^2.9.2"
   },
   "license": "MIT",
   "directories": {

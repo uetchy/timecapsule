@@ -1,13 +1,13 @@
 const { expect } = require('chai')
 
-const { Timecapsule, Capsule } = require('../dist/timecapsule')
+const { Timecapsule, Capsule } = require('../dist')
 
-describe('timecapsule', function() {
+describe('Timecapsule', function() {
   this.timeout(5000)
 
   let deltaTime = 0
 
-  it('test', done => {
+  it('invoke event at a spcified time', done => {
     const tc = new Timecapsule([
       new Capsule(0, () => {
         console.log('start')

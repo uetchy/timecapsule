@@ -1,5 +1,9 @@
 # TimecapsuleJS
 
+```shell
+npm install --save timecapsule
+```
+
 ## Usage
 
 ```js
@@ -32,7 +36,7 @@ const group = new Timecapsule([
 ])
 ```
 
-then
+### Sync with time interval
 
 ```js
 let time = 0
@@ -40,4 +44,21 @@ setInterval(() => {
   group.invoke(time)
   time += 0.1
 }, 100)
+```
+
+### Sync with music
+
+```js
+const { AudioPlayer } = require('timecapsule/util/audioplayer')
+
+const audioSource = {
+  name: 'bgm',
+  buffer: arbitoraryArrayBuffer,
+  oneTimeUpdate: group.invoke,
+  onEnded: () => console.log('music ended'),
+}
+const player = new AudioPlayer()
+player.addSource(audioSource).then(() => {
+  player.play('bgm')
+})
 ```

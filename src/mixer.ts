@@ -2,7 +2,7 @@ interface AudioNode {
   source: AudioBufferSourceNode
   name: string
   start: number
-  offset?: number
+  offset: number | null
   isPlaying: boolean
   onTimeUpdate: Function
 }
@@ -20,10 +20,8 @@ export default class AudioMixer {
   reqFrame?: number
 
   constructor() {
-    this.AudioContext = new (window.AudioContext || window.webkitAudioContext)()
     this.nodes = []
-
-    this.reqFrame = null
+    this.AudioContext = new AudioContext()
     this.reqFrame = requestAnimationFrame(this.onTimeUpdate.bind(this))
   }
 
@@ -38,14 +36,12 @@ export default class AudioMixer {
           source: bufSource,
           name: args.name,
           start: 0,
-          offset: null,
           isPlaying: false,
           onTimeUpdate: args.onTimeUpdate,
         }
 
         bufSource.onended = () => {
           node.source.stop()
-          node.offset = null
           node.isPlaying = false
           args.onEnded()
         }
@@ -59,38 +55,46 @@ export default class AudioMixer {
   }
 
   _getNode(name: string) {
-    let node
     for (const t of this.nodes) {
       if (t.name === name) {
         return t
       }
     }
+    return undefined
   }
 
   play(name: string, startPosition: number) {
     console.log('Mixer:play', name, startPosition)
     const node = this._getNode(name)
+    if (!node) {
+      return
+    }
     node.offset = this.AudioContext.currentTime
     node.start = startPosition
     node.source.start(0, startPosition)
     node.isPlaying = true
   }
 
-  stop(name: string) {
-    console.log('Mixer:stop', name)
-    const node = this._getNode(name)
+  _stop(node: AudioNode) {
     node.source.stop()
     node.offset = null
     node.isPlaying = false
+  }
+
+  stop(name: string) {
+    console.log('Mixer:stop', name)
+    const node = this._getNode(name)
+    if (!node) {
+      return
+    }
+    this._stop(node)
   }
 
   stopAll() {
     console.log('Mixer:stopAll')
     for (const node of this.nodes) {
       if (node.isPlaying) {
-        node.source.stop()
-        node.offset = null
-        node.isPlaying = false
+        this._stop(node)
       }
     }
   }
@@ -98,7 +102,8 @@ export default class AudioMixer {
   onTimeUpdate() {
     for (const node of this.nodes) {
       if (node.isPlaying) {
-        const currentTime = this.AudioContext.currentTime - node.offset + node.start
+        const currentTime =
+          this.AudioContext.currentTime - (node.offset || 0) + node.start
         node.onTimeUpdate(currentTime)
       }
     }

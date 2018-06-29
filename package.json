@@ -1,14 +1,35 @@
 {
-  "name": "timelag",
+  "name": "timecapsule",
+  "description": "Timeline based event invocation system.",
   "version": "0.1.0",
-  "scripts": {},
-  "dependencies": {
-    "classnames": "^2.2.5",
-    "load-asset": "^1.2.0",
-    "prop-types": "^15.6.1",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+  "main": "dist/timecapsule.js",
+  "types": "dist/timecapsule.d.ts",
+  "scripts": {
+    "test": "mocha"
   },
-  "devDependencies": {},
-  "license": "MIT"
+  "dependencies": {
+    "load-asset": "^1.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  },
+  "license": "MIT",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/uetchy/timecapsule.git"
+  },
+  "keywords": [
+    "timeline",
+    "event",
+    "timesync"
+  ],
+  "author": "Yasuaki Uechi <y@uechi.io> (https://uechi.io/)",
+  "bugs": {
+    "url": "https://github.com/uetchy/timecapsule/issues"
+  },
+  "homepage": "https://github.com/uetchy/timecapsule#readme"
 }
